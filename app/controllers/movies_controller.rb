@@ -11,6 +11,16 @@ class MoviesController < ApplicationController
   end
 
   def index
+    
+    @all_ratings = ['G', 'PG', 'PG-13', 'R']
+    @ratings = params[:ratings]
+    if @ratings.respond_to?(:keys)
+      @ratings = @ratings.keys
+    else
+      @ratings = @all_ratings
+    end
+    flash[:notice] = @ratings
+  
     if params[:sortby] == 'title'
       @title_hilite = 'hilite'
       @movies = Movie.order(:title).all
@@ -20,6 +30,8 @@ class MoviesController < ApplicationController
     else
       @movies = Movie.all
     end
+    
+    @movies = @movies.where("rating IN (?)", @ratings)
   end
 
   def new
