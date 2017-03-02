@@ -20,7 +20,7 @@ class MoviesController < ApplicationController
     else
       @ratings = @all_ratings
     end
-    flash[:notice] = @ratings
+    #flash[:notice] = @ratings
   
     if params[:sortby] == 'title'
       @title_hilite = 'hilite'
